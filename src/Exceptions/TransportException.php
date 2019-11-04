@@ -27,18 +27,16 @@ abstract class TransportException extends RuntimeException implements ClientExce
     /**
      * TransportException constructor.
      * @param RequestInterface $request
-     * @param ResponseInterface|null $response
+     * @param ResponseInterface $response
      */
-    public function __construct(RequestInterface $request, ?ResponseInterface $response)
+    public function __construct(RequestInterface $request, ResponseInterface $response)
     {
         $this->request = $request;
         $this->response = $response;
 
         $message = sprintf(
             'A `%s` response was encountered when querying the GraphQL server.',
-            HttpStatusCode::getName($response->getStatusCode()),
-            $request->getMethod(),
-            $request->getUri()
+            HttpStatusCode::getName($response->getStatusCode())
         );
 
         parent::__construct($message, $response->getStatusCode());
